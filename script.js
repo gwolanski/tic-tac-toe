@@ -1,26 +1,73 @@
-//Create gameboard as an array inside of an object
+const gameController = (() => {
+    const player = (name, marker) => {
+        this.name = name;
+        this.marker = marker;
+        return {name, marker};
+    }
+    
+    const player1 = player('Player 1', 'X');
+    const player2 = player('Player 2', 'O');
 
-//Store players in objects
-const player = (name, marker) => {
-    this.name = name;
-    this.marker = marker;
-    return {name, marker};
+    let activePlayer = player1;
+
+    console.log(activePlayer.marker)
+
+    return {
+        activePlayer,
+        player1,
+        player2
+    }
+    
+})()
+
+
+
+
+function playerTurn(cell) {
+    //if cell already contains a mark, do nothing
+    //if cell if empty, add mark for the current player's turn. 
+    //then run a function that checks for a winner
+    //then run change the activePlayer to the other player
+    if (cell.innerHTML == "") {
+        console.log("empty");
+        switchPlayer();
+
+    } else {
+        console.log("full");
+    }
+    
 }
 
-const player1 = player('Player 1', 'X');
-const player2 = player('Player 2', 'O');
+function switchPlayer() {
+    if (gameController.activePlayer == gameController.player1) {
+        gameController.activePlayer = gameController.player2;
+        console.log("activePlayer: " + gameController.activePlayer.name)
+    } else if (gameController.activePlayer == gameController.player2) {
+        gameController.activePlayer = gameController.player1;
+        console.log("activePlayer: " + gameController.activePlayer.name)
+    }
+    }
+
 
 //create a gameboard using the module pattern
 const gameBoard = (() => {
-    const rows = 3;
-    const columns = 3;
+    const numRows = 3;
+    const numColumns = 3;
+    const boardSize = numRows * numColumns;
     const board = ["X", "O", "X", "O", "X", "O", "X", "X", "O"];
-    displayBoard(board)
-})();
 
-//this function should render the contents of the gameboard array to the webpage;
-const displayBoard = ((board) => {
+    let boardContainer = document.getElementById('gameboard');
 
-    //to start: I want to display the array items from board in a 3x3 grid
-    //eventually: every time a player takes a turn, i want the board to display their marker in the selected cell
+    boardContainer.style.gridTemplateColumns = `repeat(3, 125px)`;
+    boardContainer.style.gridTemplateRows = `repeat(3, 125px)`;
+
+    for (let i = 0; i < boardSize; i++) {
+        let cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.innerHTML = board[i];
+        cell.addEventListener('click', function(){
+            playerTurn(cell);
+        });
+        boardContainer.appendChild(cell);
+    }
 })();
