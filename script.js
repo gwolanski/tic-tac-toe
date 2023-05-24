@@ -26,8 +26,6 @@ const gameController = (() => {
 })()
 
 
-
-
 function playerTurn(cell, cellIndex) {
     if (cell.innerHTML == "") {
         gameBoard.board[cellIndex] = `${gameController.activePlayer.marker}`;
@@ -36,8 +34,16 @@ function playerTurn(cell, cellIndex) {
         const noMoreMoves = !gameBoard.board.includes("");
 
         let winner = winnerCheck(gameBoard.board);
+        let cells = document.getElementsByClassName("cell");
+
+
+        console.log("cells: " + cells)
         if (winner) {
             console.log('winner!');
+            
+            for (let i = 0; i < 9; i++) {
+                cells[i].replaceWith(cells[i].cloneNode(true));
+            }
         } else if (noMoreMoves) {
             console.log('TIE');
         } else {
@@ -81,6 +87,9 @@ function updateDisplay(board) {
     boardContainer.style.gridTemplateColumns = `repeat(3, 125px)`;
     boardContainer.style.gridTemplateRows = `repeat(3, 125px)`;
 
+    const controller = new AbortController();
+    const { signal } = controller;
+
     for (let i = 0; i < boardSize; i++) {
         let cell = document.createElement('div');
         cell.className = 'cell';
@@ -89,9 +98,8 @@ function updateDisplay(board) {
         let cellIndex = cell.dataset.index;
         cell.addEventListener('click', function(){
             playerTurn(cell, cellIndex);
-        });
+        }, {once: true}, { signal });
         boardContainer.appendChild(cell);
-        
     }
 }
 
@@ -130,16 +138,4 @@ function winnerCheck(board) {
     }
     return null
 
-    
-
-    
 }
-
-// const winner = winnerCheck(gameBoard.board);
-//     console.log("winner: " + winner);
-//     if (winner) {
-//         console.log(`Player ${winner} wins!`)
-//     } else {
-//         console.log("It's a tie!");
-//     }
-
