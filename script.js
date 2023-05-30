@@ -16,9 +16,14 @@ const gameController = (() => {
 
     let resetButton = document.getElementById('reset');
     function resetGame() {
-    gameBoard.board = ["", "", "", "", "", "", "", "", ""];
+        gameBoard.board = ["", "", "", "", "", "", "", "", ""];
 
-    updateDisplay(gameBoard.board);
+        updateDisplay(gameBoard.board);
+        activePlayer = player1;
+        messageDisplay.innerHTML = `${activePlayer.name}'s turn`;
+        messageDisplay.removeAttribute('id');
+        messageDisplay.setAttribute('id', 'message');
+        messageDisplay.classList.add('playerOne');
     }
     resetButton.addEventListener('click', resetGame);
 
