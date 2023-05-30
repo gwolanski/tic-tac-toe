@@ -40,26 +40,42 @@ body {
     background-color: black;
     color: rgb(255, 128, 0);
     font-size: 3rem;
+    cursor: pointer;
 }
 
 #message {
     margin-top: 55px;
     font-family: 'Pangolin', sans-serif;
     font-size: 2rem;
+    /* color: rgb(0, 255, 119); */
+}
+
+.playerOne {
     color: rgb(0, 255, 119);
 }
 
+.playerTwo {
+    color: rgb(0, 174, 255);
+}
+
 #winner {
-    margin-top: 75px;
+    margin-top: 45px;
     font-size: 2.25rem;
     font-weight: bold;
     background-color: #f3ec78;
-    background-image: linear-gradient(45deg, #f3ec78, #af4261);
+    background-image: linear-gradient(45deg, #f3ec78, #ff5283);
     background-size: 100%;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent; 
     -moz-text-fill-color: transparent;
+}
+
+#tie {
+    margin-top: 45px;
+    font-size: 2.25rem;
+    font-weight: bold;
+    color:rgb(190, 168, 254)
 }
 
 .markerContainer {
@@ -79,7 +95,7 @@ body {
 
 #reset {
     margin-top: 20px;
-    padding: 5px;
+    padding: 10px;
     font-size: 1.5rem;
     font-family: 'Pangolin', sans-serif;
     color: white;

@@ -56,7 +56,8 @@ function playerTurn(cell, cellIndex) {
             messageDiv.innerHTML = `${winner} (${winnerMark}) wins!`;
             messageDiv.setAttribute("id", "winner");
         } else if (noMoreMoves) {
-            messageDiv.innerHTML = "It's a tie!"
+            messageDiv.innerHTML = "It's a tie!";
+            messageDiv.setAttribute("id", "tie");
         } else {
             switchPlayer();
         }
@@ -91,7 +92,6 @@ function playerTurn(cell, cellIndex) {
         for (const combo of winningCombos) {
             const [a, b, c] = combo;
             if (board[a] == board[b] && board[b] == board[c] && board[a] !== '') {
-                console.log("board[a]: " + board[a])
                 return board[a];
             } 
         }
